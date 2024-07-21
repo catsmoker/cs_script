@@ -1,1 +1,1 @@
-# cs_script.bat
+# windows script that dose many things
