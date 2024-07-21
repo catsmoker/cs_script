@@ -1,0 +1,105 @@
+@echo off
+
+:menu
+cls
+echo 1. Scan and fix your Windows
+echo 2. Download VLC, Firefox,qBittorrent, and IDM
+echo 3. Activate IDM for another 30 days
+echo 4. Download Atlas OS playbook
+echo 5. Exit
+set /p choice="Enter the number of your choice: "
+
+if "%choice%"=="1" goto fix
+if "%choice%"=="2" goto winget
+if "%choice%"=="3" goto activate
+if "%choice%"=="4" goto atlasos
+if "%choice%"=="5" exit
+
+goto menu
+
+:fix
+cls
+echo Running System File Checker (sfc)...
+sfc /scannow
+if %errorlevel% neq 0 (
+    echo sfc encountered an issue. Check the log for details.
+    pause
+    exit /b %errorlevel%
+)
+echo Running DISM RestoreHealth...
+DISM /Online /Cleanup-Image /RestoreHealth
+if %errorlevel% neq 0 (
+    echo DISM RestoreHealth encountered an issue. Check the log for details.
+    pause
+    exit /b %errorlevel%
+)
+echo Done!
+pause
+goto menu
+
+:winget
+cls
+echo Upgrading all packages using winget...
+winget upgrade --all
+if %errorlevel% neq 0 (
+    echo Winget upgrade encountered an issue. Check the log for details.
+    pause
+    exit /b %errorlevel%
+)
+echo Installing VLC...
+winget install -e --id VideoLAN.VLC
+if %errorlevel% neq 0 (
+    echo VLC installation encountered an issue. Check the log for details.
+    pause
+    exit /b %errorlevel%
+)
+echo Installing Firefox...
+winget install -e --id Mozilla.Firefox
+if %errorlevel% neq 0 (
+    echo Firefox installation encountered an issue. Check the log for details.
+    pause
+    exit /b %errorlevel%
+)
+echo Installing qBittorrent...
+winget install -e --id qBittorrent.qBittorrent
+if %errorlevel% neq 0 (
+    echo qBittorrent installation encountered an issue. Check the log for details.
+    pause
+    exit /b %errorlevel%
+)
+echo Installing Internet Download Manager...
+winget install -e --id Tonec.InternetDownloadManager
+if %errorlevel% neq 0 (
+    echo Internet Download Manager installation encountered an issue. Check the log for details.
+    pause
+    exit /b %errorlevel%
+)
+echo Done!
+pause
+goto menu
+
+:activate
+cls
+echo Downloading IDM Trial Reset to Desktop...
+powershell -Command "Invoke-WebRequest -Uri 'https://github.com/J2TEAM/idm-trial-reset/releases/download/v1.0.0/IDM.Trial.Reset.v1.0.0.zip' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'IDM.Trial.Reset.v1.0.0.zip'))"
+if %errorlevel% neq 0 (
+    echo IDM Trial Reset download encountered an issue. Check the log for details.
+    pause
+    exit /b %errorlevel%
+)
+echo Done!
+pause
+goto menu
+
+:atlasos
+cls
+echo Downloading Atlas OS to Desktop...
+powershell -Command "Invoke-WebRequest -Uri 'https://github.com/Atlas-OS/Atlas/releases/download/0.4.0/AtlasPlaybook_v0.4.0.zip' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'AtlasPlaybook_v0.4.0.zip'))"
+if %errorlevel% neq 0 (
+    echo Atlas OS download encountered an issue. Check the log for details.
+    pause
+    exit /b %errorlevel%
+)
+echo Done!
+pause
+goto menu
