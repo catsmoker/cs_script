@@ -21,7 +21,7 @@ echo Select an option:
 echo 1. Scan and Fix Windows
 echo 2. Download Specific Applications
 echo 3. Activate windows
-echo 4. Download Atlas OS Playbook
+echo 4. Download Atlas OS Playbook and ame wizard
 echo 5. Exit
 
 set /p choice=Enter your choice (1-5):
@@ -29,7 +29,7 @@ set /p choice=Enter your choice (1-5):
 if "%choice%"=="1" goto scan_fix_windows
 if "%choice%"=="2" goto download_apps
 if "%choice%"=="3" goto activate_windows
-if "%choice%"=="4" goto download_atlas_os_playbook
+if "%choice%"=="4" goto playbook_and_ame
 if "%choice%"=="5" goto exit_script
 echo Invalid choice. Please enter a number between 1 and 5.
 goto menu
@@ -146,7 +146,7 @@ echo Done!
 pause
 goto menu
 
-:download_atlas_os_playbook
+:playbook_and_ame
 cls
 echo Downloading Atlas OS playbook...
 powershell -Command "Invoke-WebRequest -Uri 'https://github.com/Atlas-OS/Atlas/releases/download/0.4.0/AtlasPlaybook_v0.4.0.zip' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'AtlasPlaybook_v0.4.0.zip'))"
