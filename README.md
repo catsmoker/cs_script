@@ -5,10 +5,6 @@ This script automates several tasks on a Windows system, including system mainte
 ## Features
 
 1. **Scan and Fix Windows**: Automatically runs the System File Checker (SFC) to scan and repair system files.
-2. **Download and Install Applications**: Downloads and installs the following applications:
-   - VLC Media Player
-   - Mozilla Firefox
-   - qBittorrent
-   - Internet Download Manager (IDM)
-3. **Activate IDM**: Attempts to activate IDM for an additional 30 days. Note: Activation may require manual intervention or a separate tool.
-4. **Download Atlas OS Playbook**: Downloads the Atlas OS playbook for your reference.
+2. **Download and Install Applications**: Downloads and installs the some applications.
+3. **Activate windows**: Attempts to activate windows. Note: Activation may require manual intervention or a separate tool.
+4. **Download Atlas OS Playbook and ame wizard**: Downloads the Atlas OS playbook and ame wizard for your reference.
