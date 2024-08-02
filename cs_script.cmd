@@ -3,7 +3,7 @@ setlocal EnableDelayedExpansion
 
 ::============================================================================
 ::
-::   cs Script v1.1 (catsmoker) 
+::   cs Script v1.2 (catsmoker) 
 ::
 ::   Homepages: https://github.com/catsmoker/cs_script.bat
 ::   
@@ -60,8 +60,8 @@ echo Downloading specific applications...
 echo Select an option:
 echo 1. vlc
 echo 2. Firefox
-echo 3. qBittorrent         not working
-echo 4. neat                not working
+echo 3. qBittorrent
+echo 4. neat
 echo 5. upgrade
 echo 6. Exit
 
@@ -69,7 +69,7 @@ set /p choice=Enter your choice (1-6):
 
 if "%choice%"=="1" goto vlc
 if "%choice%"=="2" goto Firefox
-if "%choice%"=="3" goto aqBittorrent
+if "%choice%"=="3" goto qBittorrent
 if "%choice%"=="4" goto neat
 if "%choice%"=="5" goto upgrade
 if "%choice%"=="6" goto exit_script
@@ -114,10 +114,12 @@ pause
 goto menu
 :qBittorrent
 cls
-echo Installing qBittorrent...
+echo Installing qbittorrent...
+
+:: Try to install using winget
 winget install -e --id qBittorrent.qBittorrent
 if %errorlevel% neq 0 (
-    echo please go to https://www.qbittorrent.org/
+    echo please go to https://www.qbittorrent.org/download
     pause
     exit /b %errorlevel%
 )
@@ -127,21 +129,37 @@ goto menu
 :neat
 cls
 echo Installing Neat Download Manager...
-winget install -e --id JavadMotallebi.NeatDownloadManager
-if %errorlevel% neq 0 (
-    echo please go to https://www.neatdownloadmanager.com/index.php/en/
-    pause
-    exit /b %errorlevel%
-)
-echo Done!
-pause
-goto menu
 
+:: Try to install using winget
+winget install -e --id JavadMotallebi.NeatDownloadManager
+
+:: Check if winget command was successful
+if %errorlevel% neq 0 (
+    echo winget installation failed.
+    echo Please go to https://www.neatdownloadmanager.com/index.php/en/
+    
+    :: Download using PowerShell
+    powershell -Command "Invoke-WebRequest -Uri 'https://www.neatdownloadmanager.com/file/NeatDM_setup.exe' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'NeatDM_setup.exe'))"
+    
+    :: Install downloaded setup
+    echo Installing NeatDM_setup.exe...
+    start /wait %USERPROFILE%\Desktop\NeatDM_setup.exe
+    
+    echo Installation complete.
+    pause
+    goto menu
+)
 :activate_windows
 cls
 echo Activating windows...
-echo open this in your browser...
-https://github.com/massgravel/Microsoft-Activation-Scripts?tab=readme-ov-file#download--how-to-use-it
+echo                             use PowerShell (Recommended)
+echo       1. Right-click on the Windows start menu and select PowerShell or Terminal (Not CMD).
+echo       2. Copy and paste the code below and press enter
+echo       3. "irm https://get.activated.win | iex"
+powershell -Command "irm https://get.activated.win | iex"
+echo -or open this in your browser-
+echo https://github.com/massgravel/Microsoft-Activation-Scripts?tab=readme-ov-file#download--how-to-use-it
+start https://github.com/massgravel/Microsoft-Activation-Scripts?tab=readme-ov-file#download--how-to-use-it
 echo Done!
 pause
 goto menu
@@ -152,6 +170,7 @@ echo Downloading Atlas OS playbook...
 powershell -Command "Invoke-WebRequest -Uri 'https://github.com/Atlas-OS/Atlas/releases/download/0.4.0/AtlasPlaybook_v0.4.0.zip' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'AtlasPlaybook_v0.4.0.zip'))"
 if %errorlevel% neq 0 (
     echo please go to https://atlasos.net/
+	start https://atlasos.net/
     pause
     exit /b %errorlevel%
 )
@@ -159,6 +178,7 @@ echo Downloading ame to Desktop / not working cuz of %20...
 powershell -Command "Invoke-WebRequest -Uri 'https://download.ameliorated.io/AME%20Wizard%20Beta.zip' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'AME Wizard Beta.zip'))"
 if %errorlevel% neq 0 (
     echo please go to https://ameliorated.io/
+	start https://ameliorated.io/
     pause
     exit /b %errorlevel%
 )
@@ -169,5 +189,6 @@ goto menu
 :exit_script
 cls
 echo Exiting script.
+start https://catsmoker.github.io
 pause
 exit /b
