@@ -29,7 +29,7 @@ goto menu
 
 :menu
 cls
-echo                                               cs Script v1.5 (by catsmoker) https://catsmoker.github.io
+echo                                               cs Script v1.6 (by catsmoker) https://catsmoker.github.io
 echo                                                                run as administrator
 echo                                                              "windows 10 & 11 64bit only"
 echo Select an option:
@@ -37,7 +37,7 @@ echo 1. Scan, Fix, clean Windows
 echo 2. Download Specific Applications
 echo 3. Activate Windows
 echo 4. Download Atlas OS Playbook and AME Wizard
-echo 5. Exit
+echo x. Exit
 
 powershell -Command "$null = New-Item -Path ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'CS Downloads')) -ItemType Directory -ErrorAction SilentlyContinue"
 
@@ -47,8 +47,8 @@ if "%choice%"=="1" goto scan_fix_windows
 if "%choice%"=="2" goto download_apps
 if "%choice%"=="3" goto activate_windows
 if "%choice%"=="4" goto ame_playbook
-if "%choice%"=="5" goto exit_script
-echo Invalid choice. Please enter a number between 1 and 5.
+if "%choice%"=="x" goto exit_script
+echo Invalid choice. Please enter a number between 1 and 5 or x.
 goto menu
 
 :scan_fix_windows
@@ -94,24 +94,26 @@ goto menu
 cls
 echo Downloading specific applications...
 echo Select an option:
-echo 1. VLC
+echo 1. Upgrade all packages
 echo 2. Firefox
 echo 3. qBittorrent
 echo 4. Neat Download Manager
 echo 5. mem reduct
-echo 6. Upgrade all packages
-echo 7. Exit
+echo 6. VLC
+echo 7. bcuninstaller
+echo x. Exit
 
 set /p choice=Enter your choice (1-7): 
 
-if "%choice%"=="1" goto vlc
+if "%choice%"=="1" goto upgrade
 if "%choice%"=="2" goto Firefox
 if "%choice%"=="3" goto qBittorrent
 if "%choice%"=="4" goto neat
 if "%choice%"=="5" goto mem
-if "%choice%"=="6" goto upgrade
-if "%choice%"=="7" goto menu
-echo Invalid choice. Please enter a number between 1 and 7.
+if "%choice%"=="6" goto vlc
+if "%choice%"=="7" goto BCU
+if "%choice%"=="x" goto menu
+echo Invalid choice. Please enter a number between 1 and 7 or x.
 goto download_apps
 
 :upgrade
@@ -189,6 +191,19 @@ echo Downloading mem reduct...
 winget install -e --id Henry++.MemReduct
 if %errorlevel% neq 0 (
     echo Installation failed. Please go to https://github.com/henrypp/memreduct/releases
+    pause
+    goto menu
+)
+echo Done!
+pause
+goto menu
+
+:BCU
+cls
+echo Downloading BC Uninstaller...
+winget install -e --id Klocman.BulkCrapUninstaller
+if %errorlevel% neq 0 (
+    echo Installation failed. Please go to https://www.bcuninstaller.com/
     pause
     goto menu
 )
