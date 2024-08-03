@@ -16,7 +16,6 @@ goto menu
 
 ::============================================================================
 ::
-::   cs Script v1.3 (catsmoker)
 ::
 ::   Homepages: https://github.com/catsmoker/cs_script.bat
 ::   
@@ -30,7 +29,7 @@ goto menu
 
 :menu
 cls
-echo                                               cs Script v1.2 (by catsmoker) https://catsmoker.github.io
+echo                                               cs Script v1.3 (by catsmoker) https://catsmoker.github.io
 echo                                                                run as administrator
 echo Select an option:
 echo 1. Scan and Fix Windows
