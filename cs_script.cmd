@@ -29,7 +29,7 @@ goto menu
 
 :menu
 cls
-echo                                               cs Script v1.6 (by catsmoker) https://catsmoker.github.io
+echo                                               cs Script v1.7 (by catsmoker) https://catsmoker.github.io
 echo                                                                run as administrator
 echo                                                              "windows 10 & 11 64bit only"
 echo Select an option:
@@ -43,15 +43,15 @@ powershell -Command "$null = New-Item -Path ([System.IO.Path]::Combine([System.E
 
 set /p choice=Enter your choice (1-5): 
 
-if "%choice%"=="1" goto scan_fix_windows
+if "%choice%"=="1" goto sfc
 if "%choice%"=="2" goto download_apps
 if "%choice%"=="3" goto activate_windows
 if "%choice%"=="4" goto ame_playbook
 if "%choice%"=="x" goto exit_script
-echo Invalid choice. Please enter a number between 1 and 5 or x.
+echo Invalid choice. Please enter a number between 1 to 5 or x.
 goto menu
 
-:scan_fix_windows
+:sfc
 cls
 
 :: Clean Windows Temp folder
@@ -94,6 +94,7 @@ goto menu
 cls
 echo Downloading specific applications...
 echo Select an option:
+echo 0. all
 echo 1. Upgrade all packages
 echo 2. Firefox
 echo 3. qBittorrent
@@ -103,8 +104,9 @@ echo 6. VLC
 echo 7. bcuninstaller
 echo x. Exit
 
-set /p choice=Enter your choice (1-7): 
+set /p choice=Enter your choice (0-7): 
 
+if "%choice%"=="0" goto all
 if "%choice%"=="1" goto upgrade
 if "%choice%"=="2" goto Firefox
 if "%choice%"=="3" goto qBittorrent
@@ -113,8 +115,25 @@ if "%choice%"=="5" goto mem
 if "%choice%"=="6" goto vlc
 if "%choice%"=="7" goto BCU
 if "%choice%"=="x" goto menu
-echo Invalid choice. Please enter a number between 1 and 7 or x.
+echo Invalid choice. Please enter a number between 0 to 7 or x.
 goto download_apps
+
+:all
+cls
+echo Upgrading all packages using winget...
+winget upgrade --all
+echo Installing VLC...
+winget install -e --id VideoLAN.VLC
+echo Installing Firefox...
+winget install -e --id Mozilla.Firefox
+echo Installing qBittorrent...
+winget install -e --id qBittorrent.qBittorrent
+echo Downloading Neat Download Manager...
+powershell -Command "Invoke-WebRequest -Uri 'https://www.neatdownloadmanager.com/file/NeatDM_setup.exe' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'NeatDM_setup.exe'))"
+echo Downloading mem reduct...
+winget install -e --id Henry++.MemReduct
+echo Downloading BC Uninstaller...
+winget install -e --id Klocman.BulkCrapUninstaller
 
 :upgrade
 cls
