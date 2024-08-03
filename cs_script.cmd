@@ -235,4 +235,6 @@ goto menu
 cls
 echo Exiting script.
 start https://catsmoker.github.io
+:: End of script
+:EOF
 exit /b
