@@ -29,8 +29,8 @@ goto menu
 
 :menu
 cls
-echo                                               cs Script v1.7 (by catsmoker) https://catsmoker.github.io
-echo                                                                run as administrator
+echo                                               cs Script v1.8 (by catsmoker) https://catsmoker.github.io
+echo                                                                run this as administrator
 echo                                                              "windows 10 & 11 64bit only"
 echo Select an option:
 echo 1. Scan, Fix, clean Windows
@@ -39,7 +39,6 @@ echo 3. Activate Windows
 echo 4. Download Atlas OS Playbook and AME Wizard
 echo x. Exit
 
-powershell -Command "$null = New-Item -Path ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'CS Downloads')) -ItemType Directory -ErrorAction SilentlyContinue"
 
 set /p choice=Enter your choice (1-5): 
 
@@ -247,6 +246,8 @@ goto menu
 
 :ame_playbook
 cls
+echo making a Download file in Desktop...
+powershell -Command "$null = New-Item -Path ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'CS Downloads')) -ItemType Directory -ErrorAction SilentlyContinue"
 echo Downloading Atlas OS playbook...
 powershell -Command "Invoke-WebRequest -Uri 'https://github.com/Atlas-OS/Atlas/releases/download/0.4.0/AtlasPlaybook_v0.4.0.zip' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'CS Downloads', 'AtlasPlaybook_v0.4.0.zip'))"
 if %errorlevel% neq 0 (
