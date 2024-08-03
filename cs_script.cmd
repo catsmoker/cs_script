@@ -12,6 +12,9 @@ if %errorLevel% neq 0 (
     set "batchPath=%~f0"
     :: Start a new Command Prompt with elevated privileges
     powershell -Command "Start-Process cmd -ArgumentList '/c \"%batchPath%\"' -Verb RunAs"
+	echo couldn't run the script as administrator
+	echo Please run this as administrator
+	pause
     goto end
 )
 
@@ -32,7 +35,7 @@ goto menu
 
 :menu
 cls
-echo                                               cs Script v1.9 (by catsmoker) https://catsmoker.github.io
+echo                                               cs Script v1.0 (by catsmoker) https://catsmoker.github.io
 echo                                                                run this as administrator
 echo                                                              "windows 10 & 11 64bit only"
 echo Select an option:
