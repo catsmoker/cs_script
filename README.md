@@ -8,3 +8,6 @@ This script automates several tasks on a Windows system, including system mainte
 2. **Download and Install Applications**: Downloads and installs the some applications.
 3. **Activate windows**: Attempts to activate windows. Note: Activation may require manual intervention or a separate tool.
 4. **Download Atlas OS Playbook and ame wizard**: Downloads the Atlas OS playbook and ame wizard for your reference.
+
+## Attention
+the script runs only in windows 10 & 11 -64Bit-
