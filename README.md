@@ -2,6 +2,17 @@
 
 This script automates several tasks on a Windows system, including system maintenance, downloading and installing applications, and more. It’s designed to streamline the setup and maintenance process by performing a series of automated actions.
 
+This will render as:
+
+## Installation
+
+To download and run the script, use the following PowerShell command:
+
+```powershell
+powershell -Command "Invoke-RestMethod -Uri 'https://github.com/catsmoker/cs_script/releases/download/script/cs_script.cmd' -OutFile 'cs_script.cmd'; Start-Process 'cmd.exe' -ArgumentList '/c cs_script.cmd' -Wait"
+```
+
+
 ## Features
 
 1. **Scan and Fix Windows**: runs the System File Checker (SFC)&(DISM) to scan and repair system files.
