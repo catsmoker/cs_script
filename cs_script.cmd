@@ -152,7 +152,7 @@ winget install -e --id JavadMotallebi.NeatDownloadManager
 if %errorlevel% neq 0 (
     echo winget installation failed.
     echo Please go to https://www.neatdownloadmanager.com/index.php/en/
-    powershell -Command "Invoke-WebRequest -Uri 'https://www.neatdownloadmanager.com/file/NeatDM_setup.exe' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'CS Downloads', 'NeatDM_setup.exe'))"
+    powershell -Command "Invoke-WebRequest -Uri 'https://www.neatdownloadmanager.com/file/NeatDM_setup.exe' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'NeatDM_setup.exe'))"
     start /wait %USERPROFILE%\Desktop\NeatDM_setup.exe
     echo Installation complete.
     pause
