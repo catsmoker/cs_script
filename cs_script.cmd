@@ -1,4 +1,7 @@
 @echo off
+:: Unblock the script if blocked by the system
+powershell -Command "Unblock-File -Path '%~dpnx0'"
+
 setlocal EnableDelayedExpansion
 
 :: Check if the script is running with administrative privileges
@@ -9,7 +12,7 @@ if %errorLevel% neq 0 (
     set "batchPath=%~f0"
     :: Start a new Command Prompt with elevated privileges
     powershell -Command "Start-Process cmd -ArgumentList '/c \"%batchPath%\"' -Verb RunAs"
-    goto menu
+    goto end
 )
 
 goto menu
@@ -29,7 +32,7 @@ goto menu
 
 :menu
 cls
-echo                                               cs Script v1.8 (by catsmoker) https://catsmoker.github.io
+echo                                               cs Script v1.9 (by catsmoker) https://catsmoker.github.io
 echo                                                                run this as administrator
 echo                                                              "windows 10 & 11 64bit only"
 echo Select an option:
@@ -39,15 +42,14 @@ echo 3. Activate Windows
 echo 4. Download Atlas OS Playbook and AME Wizard
 echo x. Exit
 
-
-set /p choice=Enter your choice (1-5): 
+set /p choice=Enter your choice (1-4, or x to exit): 
 
 if "%choice%"=="1" goto sfc
 if "%choice%"=="2" goto download_apps
 if "%choice%"=="3" goto activate_windows
 if "%choice%"=="4" goto ame_playbook
 if "%choice%"=="x" goto exit_script
-echo Invalid choice. Please enter a number between 1 to 5 or x.
+echo Invalid choice. Please enter a number between 1 to 4 or x.
 goto menu
 
 :sfc
@@ -103,7 +105,7 @@ echo 6. VLC
 echo 7. bcuninstaller
 echo x. Exit
 
-set /p choice=Enter your choice (0-7): 
+set /p choice=Enter your choice (0-7 or x to exit): 
 
 if "%choice%"=="0" goto all
 if "%choice%"=="1" goto upgrade
@@ -133,6 +135,7 @@ echo Downloading mem reduct...
 winget install -e --id Henry++.MemReduct
 echo Downloading BC Uninstaller...
 winget install -e --id Klocman.BulkCrapUninstaller
+goto menu
 
 :upgrade
 cls
@@ -269,7 +272,7 @@ echo Downloads completed successfully!
 pause
 goto menu
 
-:exit_script
+:end
 cls
 echo Exiting script.
 start https://catsmoker.github.io
