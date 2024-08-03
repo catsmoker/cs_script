@@ -29,7 +29,7 @@ goto menu
 
 :menu
 cls
-echo                                               cs Script v1.3 (by catsmoker) https://catsmoker.github.io
+echo                                               cs Script v1.4 (by catsmoker) https://catsmoker.github.io
 echo                                                                run as administrator
 echo Select an option:
 echo 1. Scan and Fix Windows
@@ -63,6 +63,36 @@ echo Running DISM RestoreHealth...
 DISM /Online /Cleanup-Image /RestoreHealth
 if %errorlevel% neq 0 (
     echo DISM RestoreHealth encountered an issue.
+    pause
+    goto menu
+)
+:: Clean Windows Temp folder
+echo Cleaning Windows Temp folder...
+del /q /f /s %temp%\*
+
+:: Clean System Temp folder
+echo Cleaning System Temp folder...
+del /q /f /s C:\Windows\Temp\*
+
+:: Clean Prefetch folder
+echo Cleaning Prefetch folder...
+del /q /f /s C:\Windows\Prefetch\*
+
+:: Clean Internet Explorer cache
+echo Cleaning Internet Explorer cache...
+RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 8
+
+:: Clean Recycle Bin
+echo Emptying Recycle Bin...
+rd /s /q C:\$Recycle.Bin
+
+:: Run Disk Cleanup
+echo Running Disk Cleanup...
+cleanmgr /sagerun:1
+
+echo Cleanup complete.
+if %errorlevel% neq 0 (
+    echo Cleaning Windows encountered an issue.
     pause
     goto menu
 )
