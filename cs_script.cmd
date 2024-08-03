@@ -9,9 +9,9 @@ if %errorLevel% neq 0 (
     set "batchPath=%~f0"
     :: Start a new Command Prompt with elevated privileges
     powershell -Command "Start-Process cmd -ArgumentList '/c \"%batchPath%\"' -Verb RunAs"
-	echo Script is running with administrative privileges.
-    goto menu
+    exit /b
 )
+
 goto menu
 
 ::============================================================================
@@ -29,10 +29,11 @@ goto menu
 
 :menu
 cls
-echo                                               cs Script v1.4 (by catsmoker) https://catsmoker.github.io
+echo                                               cs Script v1.5 (by catsmoker) https://catsmoker.github.io
 echo                                                                run as administrator
+echo                                                              "windows 10 & 11 64bit only"
 echo Select an option:
-echo 1. Scan and Fix Windows
+echo 1. Scan, Fix, clean Windows
 echo 2. Download Specific Applications
 echo 3. Activate Windows
 echo 4. Download Atlas OS Playbook and AME Wizard
@@ -52,20 +53,7 @@ goto menu
 
 :scan_fix_windows
 cls
-echo Scanning and fixing Windows...
-sfc /scannow
-if %errorlevel% neq 0 (
-    echo sfc encountered an issue.
-    pause
-    goto menu
-)
-echo Running DISM RestoreHealth...
-DISM /Online /Cleanup-Image /RestoreHealth
-if %errorlevel% neq 0 (
-    echo DISM RestoreHealth encountered an issue.
-    pause
-    goto menu
-)
+
 :: Clean Windows Temp folder
 echo Cleaning Windows Temp folder...
 del /q /f /s %temp%\*
@@ -91,11 +79,13 @@ echo Running Disk Cleanup...
 cleanmgr /sagerun:1
 
 echo Cleanup complete.
-if %errorlevel% neq 0 (
-    echo Cleaning Windows encountered an issue.
-    pause
-    goto menu
-)
+
+echo Scanning and fixing Windows...
+sfc /scannow
+
+echo Running DISM RestoreHealth...
+DISM /Online /Cleanup-Image /RestoreHealth
+
 echo Done!
 pause
 goto menu
@@ -108,18 +98,20 @@ echo 1. VLC
 echo 2. Firefox
 echo 3. qBittorrent
 echo 4. Neat Download Manager
-echo 5. Upgrade all packages
-echo 6. Exit
+echo 5. mem reduct
+echo 6. Upgrade all packages
+echo 7. Exit
 
-set /p choice=Enter your choice (1-6): 
+set /p choice=Enter your choice (1-7): 
 
 if "%choice%"=="1" goto vlc
 if "%choice%"=="2" goto Firefox
 if "%choice%"=="3" goto qBittorrent
 if "%choice%"=="4" goto neat
-if "%choice%"=="5" goto upgrade
-if "%choice%"=="6" goto menu
-echo Invalid choice. Please enter a number between 1 and 6.
+if "%choice%"=="5" goto mem
+if "%choice%"=="6" goto upgrade
+if "%choice%"=="7" goto menu
+echo Invalid choice. Please enter a number between 1 and 7.
 goto download_apps
 
 :upgrade
@@ -140,7 +132,7 @@ cls
 echo Installing VLC...
 winget install -e --id VideoLAN.VLC
 if %errorlevel% neq 0 (
-    echo please go to https://www.videolan.org/vlc/
+    echo Installation failed. Please go to https://www.videolan.org/vlc/
     pause
     goto menu
 )
@@ -153,7 +145,7 @@ cls
 echo Installing Firefox...
 winget install -e --id Mozilla.Firefox
 if %errorlevel% neq 0 (
-    echo please go to https://www.mozilla.org/en-US/firefox/new/
+    echo Installation failed. Please go to https://www.mozilla.org/en-US/firefox/new/
     pause
     goto menu
 )
@@ -166,7 +158,7 @@ cls
 echo Installing qBittorrent...
 winget install -e --id qBittorrent.qBittorrent
 if %errorlevel% neq 0 (
-    echo please go to https://www.qbittorrent.org/download
+    echo Installation failed. Please go to https://www.qbittorrent.org/download
     pause
     goto menu
 )
@@ -184,6 +176,19 @@ if %errorlevel% neq 0 (
     powershell -Command "Invoke-WebRequest -Uri 'https://www.neatdownloadmanager.com/file/NeatDM_setup.exe' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'NeatDM_setup.exe'))"
     start /wait %USERPROFILE%\Desktop\NeatDM_setup.exe
     echo Installation complete.
+    pause
+    goto menu
+)
+echo Done!
+pause
+goto menu
+
+:mem
+cls
+echo Downloading mem reduct...
+winget install -e --id Henry++.MemReduct
+if %errorlevel% neq 0 (
+    echo Installation failed. Please go to https://github.com/henrypp/memreduct/releases
     pause
     goto menu
 )
@@ -211,8 +216,7 @@ cls
 echo Downloading Atlas OS playbook...
 powershell -Command "Invoke-WebRequest -Uri 'https://github.com/Atlas-OS/Atlas/releases/download/0.4.0/AtlasPlaybook_v0.4.0.zip' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'CS Downloads', 'AtlasPlaybook_v0.4.0.zip'))"
 if %errorlevel% neq 0 (
-    echo Failed to download Atlas OS playbook.
-    echo Please visit https://atlasos.net/
+    echo Failed to download Atlas OS playbook. Please visit https://atlasos.net/
     start https://atlasos.net/
     pause
     goto menu
@@ -220,8 +224,7 @@ if %errorlevel% neq 0 (
 echo Downloading AME Wizard to Desktop...
 powershell -Command "Invoke-WebRequest -Uri 'https://download.ameliorated.io/AME%20Wizard%20Beta.zip' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'CS Downloads', 'AME Wizard Beta.zip'))"
 if %errorlevel% neq 0 (
-    echo Failed to download AME Wizard.
-    echo Please visit https://ameliorated.io/
+    echo Failed to download AME Wizard. Please visit https://ameliorated.io/
     start https://ameliorated.io/
     pause
     goto menu
@@ -236,5 +239,4 @@ cls
 echo Exiting script.
 start https://catsmoker.github.io
 :: End of script
-:EOF
 exit /b
