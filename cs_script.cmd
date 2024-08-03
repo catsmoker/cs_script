@@ -9,7 +9,7 @@ if %errorLevel% neq 0 (
     set "batchPath=%~f0"
     :: Start a new Command Prompt with elevated privileges
     powershell -Command "Start-Process cmd -ArgumentList '/c \"%batchPath%\"' -Verb RunAs"
-    exit /b
+    goto menu
 )
 
 goto menu
