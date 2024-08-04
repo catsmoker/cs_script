@@ -13,7 +13,7 @@
 ::
 ::============================================================================
 
-echo                                               cs Script v1.0 (by catsmoker) https://catsmoker.github.io
+echo                                                                    cs Script v1.1
 echo                                                            Please run this as administrator
 echo                                                              "windows 10 & 11 64bit only"
 
@@ -41,8 +41,6 @@ goto menu
 :menu
 cls
 echo                                               cs Script v1.1 (by catsmoker) https://catsmoker.github.io
-echo                                                            Please run this as administrator
-echo                                                              "windows 10 & 11 64bit only"
 echo Select an option:
 echo 0. clean Windows
 echo 1. Scan and Fix Windows
@@ -64,7 +62,6 @@ goto menu
 
 :clean
 cls
-
 :: Clean Windows Temp folder
 echo Cleaning Windows Temp folder...
 del /q /f /s %temp%\*
@@ -94,7 +91,6 @@ echo Cleanup complete.
 
 :Fix
 cls
-
 echo Scanning and fixing Windows...
 sfc /scannow
 
