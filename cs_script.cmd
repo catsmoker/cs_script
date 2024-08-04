@@ -1,4 +1,22 @@
 @echo off
+
+::============================================================================
+::
+::
+::   Homepages: https://github.com/catsmoker/cs_script.bat
+::   
+::
+::   Please Check my website: https://catsmoker.github.io
+::
+::
+::       Email: boulhada08@gmail.com
+::
+::============================================================================
+
+echo                                               cs Script v1.0 (by catsmoker) https://catsmoker.github.io
+echo                                                            Please run this as administrator
+echo                                                              "windows 10 & 11 64bit only"
+
 :: Unblock the script if blocked by the system
 powershell -Command "Unblock-File -Path '%~dpnx0'"
 
@@ -20,42 +38,31 @@ if %errorLevel% neq 0 (
 
 goto menu
 
-::============================================================================
-::
-::
-::   Homepages: https://github.com/catsmoker/cs_script.bat
-::   
-::
-::   Please Check my website: https://catsmoker.github.io
-::
-::
-::       Email: boulhada08@gmail.com
-::
-::============================================================================
-
 :menu
 cls
-echo                                               cs Script v1.0 (by catsmoker) https://catsmoker.github.io
-echo                                                                run this as administrator
+echo                                               cs Script v1.1 (by catsmoker) https://catsmoker.github.io
+echo                                                            Please run this as administrator
 echo                                                              "windows 10 & 11 64bit only"
 echo Select an option:
-echo 1. Scan, Fix, clean Windows
+echo 0. clean Windows
+echo 1. Scan and Fix Windows
 echo 2. Download Specific Applications
 echo 3. Activate Windows
 echo 4. Download Atlas OS Playbook and AME Wizard
 echo x. Exit
 
-set /p choice=Enter your choice (1-4, or x to exit): 
+set /p choice=Enter your choice (0-4, or x to exit):
 
-if "%choice%"=="1" goto sfc
+if "%choice%"=="0" goto clean
+if "%choice%"=="1" goto Fix
 if "%choice%"=="2" goto download_apps
 if "%choice%"=="3" goto activate_windows
 if "%choice%"=="4" goto ame_playbook
 if "%choice%"=="x" goto exit_script
-echo Invalid choice. Please enter a number between 1 to 4 or x.
+echo Invalid choice. Please enter a number between 0 to 4 or x.
 goto menu
 
-:sfc
+:clean
 cls
 
 :: Clean Windows Temp folder
@@ -83,6 +90,10 @@ echo Running Disk Cleanup...
 cleanmgr /sagerun:1
 
 echo Cleanup complete.
+
+
+:Fix
+cls
 
 echo Scanning and fixing Windows...
 sfc /scannow
