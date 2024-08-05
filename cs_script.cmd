@@ -1,5 +1,5 @@
 @echo off
-
+setlocal EnableDelayedExpansion
 ::============================================================================
 ::
 ::
@@ -13,14 +13,12 @@
 ::
 ::============================================================================
 
-echo                                                                    cs Script v1.1
+echo                                                                    cs Script v1.2
 echo                                                            Please run this as administrator
 echo                                                              "windows 10 & 11 64bit only"
 
 :: Unblock the script if blocked by the system
 powershell -Command "Unblock-File -Path '%~dpnx0'"
-
-setlocal EnableDelayedExpansion
 
 :: Check if the script is running with administrative privileges
 net session >nul 2>&1
@@ -40,7 +38,7 @@ goto menu
 
 :menu
 cls
-echo                                               cs Script v1.1 (by catsmoker) https://catsmoker.github.io
+echo                                               cs Script v1.2 (by catsmoker) https://catsmoker.github.io
 echo Select an option:
 echo 0. clean Windows
 echo 1. Scan and Fix Windows
@@ -62,32 +60,14 @@ goto menu
 
 :clean
 cls
-:: Clean Windows Temp folder
-echo Cleaning Windows Temp folder...
-del /q /f /s %temp%\*
-
-:: Clean System Temp folder
-echo Cleaning System Temp folder...
-del /q /f /s C:\Windows\Temp\*
-
-:: Clean Prefetch folder
-echo Cleaning Prefetch folder...
-del /q /f /s C:\Windows\Prefetch\*
-
-:: Clean Internet Explorer cache
-echo Cleaning Internet Explorer cache...
-RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 8
-
-:: Clean Recycle Bin
-echo Emptying Recycle Bin...
-rd /s /q C:\$Recycle.Bin
 
 :: Run Disk Cleanup
 echo Running Disk Cleanup...
-cleanmgr /sagerun:1
+cleanmgr /tuneup:1
 
 echo Cleanup complete.
-
+pause
+goto menu
 
 :Fix
 cls
