@@ -13,7 +13,7 @@ setlocal EnableDelayedExpansion
 ::
 ::============================================================================
 
-echo                                                                    cs Script v1.2
+echo                                                                    cs Script v1.3
 echo                                                            Please run this as administrator
 echo                                                              "windows 10 & 11 64bit only"
 
@@ -31,14 +31,14 @@ if %errorLevel% neq 0 (
 	echo couldn't run the script as administrator
 	echo Please run this as administrator
 	pause
-    goto end
+    goto error
 )
 
 goto menu
 
 :menu
 cls
-echo                                               cs Script v1.2 (by catsmoker) https://catsmoker.github.io
+echo                                               cs Script v1.3 (by catsmoker) https://catsmoker.github.io
 echo Select an option:
 echo 0. clean Windows
 echo 1. Scan and Fix Windows
@@ -93,9 +93,10 @@ echo 4. Neat Download Manager
 echo 5. mem reduct
 echo 6. VLC
 echo 7. bcuninstaller
+echo 8. Office 365 Pro Plus
 echo x. Exit
 
-set /p choice=Enter your choice (0-7 or x to exit): 
+set /p choice=Enter your choice (0-8 or x to exit): 
 
 if "%choice%"=="0" goto all
 if "%choice%"=="1" goto upgrade
@@ -105,8 +106,9 @@ if "%choice%"=="4" goto neat
 if "%choice%"=="5" goto mem
 if "%choice%"=="6" goto vlc
 if "%choice%"=="7" goto BCU
+if "%choice%"=="8" goto 365
 if "%choice%"=="x" goto menu
-echo Invalid choice. Please enter a number between 0 to 7 or x.
+echo Invalid choice. Please enter a number between 0 to 8 or x.
 goto download_apps
 
 :all
@@ -188,7 +190,7 @@ if %errorlevel% neq 0 (
     echo Please go to https://www.neatdownloadmanager.com/index.php/en/
     powershell -Command "Invoke-WebRequest -Uri 'https://www.neatdownloadmanager.com/file/NeatDM_setup.exe' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'NeatDM_setup.exe'))"
     start /wait %USERPROFILE%\Desktop\NeatDM_setup.exe
-    echo Installation complete.
+    echo Downloading to Desktop complete.
     pause
     goto menu
 )
@@ -215,6 +217,20 @@ echo Downloading BC Uninstaller...
 winget install -e --id Klocman.BulkCrapUninstaller
 if %errorlevel% neq 0 (
     echo Installation failed. Please go to https://www.bcuninstaller.com/
+    pause
+    goto menu
+)
+echo Done!
+pause
+goto menu
+
+:365
+cls
+echo Downloading Office 365 Pro Plus
+echo Please go to https://gravesoft.dev/office_c2r_links
+    powershell -Command "Invoke-WebRequest -Uri 'https://c2rsetup.officeapps.live.com/c2r/download.aspx?ProductreleaseID=O365ProPlusRetail&platform=x64&language=en-us&version=O16GA' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'OfficeSetup_2.exe'))"
+    start /wait %USERPROFILE%\Desktop\NeatDM_setup.exe
+    echo Downloading to Desktop complete.
     pause
     goto menu
 )
@@ -261,6 +277,14 @@ if %errorlevel% neq 0 (
 echo Downloads completed successfully!
 pause
 goto menu
+
+:error
+cls
+echo You need to open this as an administrator!
+start https://github.com/catsmoker/cs_script/blob/main/README.md
+echo Exiting script.
+pause
+exit /b
 
 :end
 cls
