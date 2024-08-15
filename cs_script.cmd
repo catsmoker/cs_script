@@ -13,7 +13,7 @@ setlocal EnableDelayedExpansion
 ::
 ::============================================================================
 
-echo                                                                    cs Script v1.3
+echo                                                                    cs Script v1.4
 echo                                                            Please run this as administrator
 echo                                                              "windows 10 & 11 64bit only"
 
@@ -38,7 +38,7 @@ goto menu
 
 :menu
 cls
-echo                                               cs Script v1.3 (by catsmoker) https://catsmoker.github.io
+echo                                               cs Script v1.4 (by catsmoker) https://catsmoker.github.io
 echo Select an option:
 echo 0. clean Windows
 echo 1. Scan and Fix Windows
@@ -52,7 +52,7 @@ set /p choice=Enter your choice (0-4, or x to exit):
 if "%choice%"=="0" goto clean
 if "%choice%"=="1" goto Fix
 if "%choice%"=="2" goto download_apps
-if "%choice%"=="3" goto activate_windows
+if "%choice%"=="3" goto activate_windows_and_office
 if "%choice%"=="4" goto ame_playbook
 if "%choice%"=="x" goto exit_script
 echo Invalid choice. Please enter a number between 0 to 4 or x.
@@ -115,18 +115,29 @@ goto download_apps
 cls
 echo Upgrading all packages using winget...
 winget upgrade --all
+
 echo Installing VLC...
 winget install -e --id VideoLAN.VLC
+
 echo Installing Firefox...
 winget install -e --id Mozilla.Firefox
+
 echo Installing qBittorrent...
 winget install -e --id qBittorrent.qBittorrent
-echo Downloading Neat Download Manager...
-powershell -Command "Invoke-WebRequest -Uri 'https://www.neatdownloadmanager.com/file/NeatDM_setup.exe' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'NeatDM_setup.exe'))"
+
 echo Downloading mem reduct...
 winget install -e --id Henry++.MemReduct
+
 echo Downloading BC Uninstaller...
 winget install -e --id Klocman.BulkCrapUninstaller
+
+echo Downloading Neat Download Manager...
+powershell -Command "Invoke-WebRequest -Uri 'https://www.neatdownloadmanager.com/file/NeatDM_setup.exe' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'NeatDM_setup.exe'))"
+start /wait %USERPROFILE%\Desktop\NeatDM_setup.exe
+
+echo Downloading office
+powershell -Command "Invoke-WebRequest -Uri 'https://c2rsetup.officeapps.live.com/c2r/download.aspx?ProductreleaseID=O365ProPlusRetail&platform=x64&language=en-us&version=O16GA' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'OfficeSetup_2.exe'))"
+start /wait %USERPROFILE%\Desktop\OfficeSetup_2.exe
 goto menu
 
 :upgrade
