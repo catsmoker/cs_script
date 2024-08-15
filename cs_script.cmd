@@ -297,9 +297,9 @@ echo Exiting script.
 pause
 exit /b
 
-:end
+:exit_script
 cls
 echo Exiting script.
 start https://catsmoker.github.io
-:: End of script
+pause
 exit /b
