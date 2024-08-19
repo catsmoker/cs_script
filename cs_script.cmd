@@ -1,19 +1,12 @@
 @echo off
 setlocal EnableDelayedExpansion
 ::============================================================================
-::
-::
 ::   Homepages: https://github.com/catsmoker/cs_script.bat
-::   
-::
-::   Please Check my website: https://catsmoker.github.io
-::
-::
-::       Email: boulhada08@gmail.com
-::
+::   Website: https://catsmoker.github.io
+::   Email: boulhada08@gmail.com
 ::============================================================================
 
-echo                                                                    cs Script v1.4
+echo                                                                    cs Script v1.5
 echo                                                            Please run this as administrator
 echo                                                              "windows 10 & 11 64bit only"
 
@@ -38,24 +31,37 @@ goto menu
 
 :menu
 cls
-echo                                               cs Script v1.4 (by catsmoker) https://catsmoker.github.io
+echo                                               cs Script v1.5 (by catsmoker) https://catsmoker.github.io
 echo Select an option:
 echo 0. clean Windows
 echo 1. Scan and Fix Windows
 echo 2. Download Specific Applications
 echo 3. Activate Windows
 echo 4. Download Atlas OS Playbook and AME Wizard
+echo 5. ctt Utility
 echo x. Exit
 
-set /p choice=Enter your choice (0-4, or x to exit):
+set /p choice=Enter your choice (0-5, or x to exit):
 
 if "%choice%"=="0" goto clean
 if "%choice%"=="1" goto Fix
 if "%choice%"=="2" goto download_apps
 if "%choice%"=="3" goto activate_windows_and_office
 if "%choice%"=="4" goto ame_playbook
+if "%choice%"=="5" goto ctt
 if "%choice%"=="x" goto exit_script
-echo Invalid choice. Please enter a number between 0 to 4 or x.
+echo Invalid choice. Please enter a number between 0 to 5 or x.
+goto menu
+
+:ctt
+cls
+echo runnig the The Ultimate Windows Utility by ctt
+cmd.exe /c powershell -Command "iwr -useb https://christitus.com/win | iex"
+echo -or open this in your browser-
+echo https://christitus.com/windows-tool/
+start https://christitus.com/windows-tool/
+echo Cleanup complete.
+pause
 goto menu
 
 :clean
