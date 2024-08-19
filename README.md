@@ -6,11 +6,7 @@ This will render as:
 
 ## Installation
 
-To download and run the script, use the following PowerShell command:
-
-```powershell
-powershell -Command "Invoke-RestMethod -Uri 'https://github.com/catsmoker/cs_script/releases/download/script/cs_script.cmd' -OutFile 'cs_script.cmd'; Start-Process 'cmd.exe' -ArgumentList '/c cs_script.cmd' -Wait"
-```
+To download and run the script
 
 
 ## Features
