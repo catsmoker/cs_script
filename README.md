@@ -8,10 +8,7 @@ This will render as:
 
 To download and run the script
 ```
-
 iwr -useb https://catsmoker.github.io/win | iex
-
-
 ```
 
 ## Features
