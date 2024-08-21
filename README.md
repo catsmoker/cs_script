@@ -7,7 +7,11 @@ This will render as:
 ## Installation
 
 To download and run the script
+```
 
+ powershell -Command "Invoke-WebRequest -Uri 'https://github.com/catsmoker/cs_script/releases/download/script/cs_script.ps1' -OutFile ([System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'cs_script.ps1'))" 
+
+```
 
 ## Features
 
