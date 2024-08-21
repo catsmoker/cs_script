@@ -23,4 +23,5 @@ iwr -useb https://catsmoker.github.io/win | iex
 The script is designed to run on Windows 10 & 11 (64-bit only).
 
 ### Recommendation
+- The `.cmd` file is outdated and no longer supported.
 - It is recommended to use the provided `.ps1` script for streamlined execution.
