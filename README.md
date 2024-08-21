@@ -19,3 +19,6 @@ To download and run the script
 
 ## Attention
 The script is designed to run on Windows 10 & 11 (64-bit only).
+
+### Recommendation
+- It is recommended to use the provided `.ps1` script for streamlined execution.
