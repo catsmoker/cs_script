@@ -41,7 +41,7 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 }
 
 # Display the script header
-Write-Host "                                                              cs Script v1.7" -ForegroundColor Green
+Write-Host "                                                              cs Script v1.6" -ForegroundColor Green
 Write-Host "                                                    Please run this as administrator" -ForegroundColor Yellow
 Write-Host "                                                      'windows 10 & 11 64bit only'" -ForegroundColor Yellow
 
