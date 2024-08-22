@@ -43,11 +43,6 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     exit
 }
 
-# Display the script header
-Write-Host "                                                              cs Script v1.7" -ForegroundColor Green
-Write-Host "                                                    Please run this as administrator" -ForegroundColor Yellow
-Write-Host "                                                      'windows 10 & 11 64bit only'" -ForegroundColor Yellow
-
 # Unblock the script if blocked by the system
 Unblock-File -Path $MyInvocation.MyCommand.Definition
 
