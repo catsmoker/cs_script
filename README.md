@@ -8,7 +8,7 @@ This will render as:
 
 To download and run the script
 ```
-irm "https://catsmoker.github.io/w" | iex
+irm https://catsmoker.github.io/w | iex
 ```
 
 ## Features
