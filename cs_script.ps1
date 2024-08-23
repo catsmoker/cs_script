@@ -48,9 +48,16 @@ if ($currentUser.Groups -notcontains 'S-1-5-32-544') {
 Unblock-File -Path $PSCommandPath
 
 # Define the path to the shortcut and the target PowerShell command
-$shortcutPath = [System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'cs_script.lnk')
+$shortcutPath = [System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'CS_script.lnk')
 $targetPath = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
 $arguments = "-NoProfile -ExecutionPolicy Bypass -Command `"powershell.exe -NoProfile -ExecutionPolicy Bypass -Command 'irm https://catsmoker.github.io/w | iex'`""
+
+# Define the URL for the icon and the path to save it locally
+$iconUrl = "https://catsmoker.github.io/assets/ico/favicon.ico"
+$localIconPath = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), 'favicon.ico')
+
+# Download the icon file
+Invoke-WebRequest -Uri $iconUrl -OutFile $localIconPath
 
 # Create a WScript.Shell COM object to create the shortcut
 $wshShell = New-Object -ComObject WScript.Shell
@@ -60,12 +67,10 @@ $shortcut = $wshShell.CreateShortcut($shortcutPath)
 $shortcut.TargetPath = $targetPath
 $shortcut.Arguments = $arguments
 $shortcut.WorkingDirectory = [System.IO.Path]::GetDirectoryName($targetPath)
-$shortcut.IconLocation = $targetPath
+$shortcut.IconLocation = $localIconPath
 
 # Save the shortcut
 $shortcut.Save()
-
-Write-Output "Shortcut created at $shortcutPath"
 
 Function Show-Menu {
     Clear-Host
