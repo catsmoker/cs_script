@@ -21,7 +21,3 @@ irm https://catsmoker.github.io/w | iex
 
 ## Attention
 The script is designed to run on Windows 10 & 11 (64-bit only).
-
-### Recommendation
-- The `cs_script.cmd` file is outdated and no longer supported.
-- It is recommended to use the provided `cs_script.ps1` script for streamlined execution.
