@@ -47,9 +47,28 @@ if ($currentUser.Groups -notcontains 'S-1-5-32-544') {
 # Unblock the script if blocked by the system
 Unblock-File -Path $PSCommandPath
 
+# Define the path to the shortcut and the target PowerShell command
+$shortcutPath = [System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'cs_script.lnk')
+$targetPath = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+$arguments = "-NoProfile -ExecutionPolicy Bypass -Command `"powershell.exe -NoProfile -ExecutionPolicy Bypass -Command 'irm https://catsmoker.github.io/w | iex'`""
+
+# Create a WScript.Shell COM object to create the shortcut
+$wshShell = New-Object -ComObject WScript.Shell
+$shortcut = $wshShell.CreateShortcut($shortcutPath)
+
+# Set the properties of the shortcut
+$shortcut.TargetPath = $targetPath
+$shortcut.Arguments = $arguments
+$shortcut.WorkingDirectory = [System.IO.Path]::GetDirectoryName($targetPath)
+$shortcut.IconLocation = $targetPath
+
+# Save the shortcut
+$shortcut.Save()
+
+Write-Output "Shortcut created at $shortcutPath"
+
 Function Show-Menu {
     Clear-Host
-    Invoke-WebRequest -Uri 'https://github.com/catsmoker/cs_script/releases/download/script/cs_script.ps1' -OutFile (Join-Path -Path $env:USERPROFILE -ChildPath 'Desktop\cs_script.ps1')
     Write-Host "                                               cs Script v1.7 (by catsmoker) https://catsmoker.github.io"
     Write-Host "Select an option:"
     Write-Host "0. Clean Windows"
