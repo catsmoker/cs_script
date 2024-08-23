@@ -23,7 +23,7 @@ $osVersion = [System.Environment]::OSVersion.Version
 if ($osVersion.Major -lt 10 -or ($osVersion.Major -eq 10 -and $osVersion.Minor -lt 0)) {
     Write-Host "This script is only supported on Windows 10 or newer." -ForegroundColor Red
     Write-Host "Your current OS version is $($osVersion.Major).$($osVersion.Minor)."
-    exit 1
+    exit
 }
 
 # Check if the script is running with administrative privileges
@@ -34,18 +34,18 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     exit
 }
 
-# Unblock the script if blocked by the system
-Unblock-File -Path $PSCommandPath
-
-# Check if the script is running with the expected administrative privileges
+# This part will only run if the script is already running with admin privileges
 $currentUser = [Security.Principal.WindowsIdentity]::GetCurrent()
-if ($currentUser.Owner.Value -ne "S-1-5-32-544") {
+if ($currentUser.Groups -notcontains 'S-1-5-32-544') {
     Write-Host "===========================================" -ForegroundColor Red
     Write-Host "-- Scripts must be run as Administrator ---" -ForegroundColor Red
     Write-Host "-- Right-Click Start -> Terminal(Admin) ---" -ForegroundColor Red
     Write-Host "===========================================" -ForegroundColor Red
-    exit 1
+    exit
 }
+
+# Unblock the script if blocked by the system
+Unblock-File -Path $PSCommandPath
 
 Function Show-Menu {
     Clear-Host
