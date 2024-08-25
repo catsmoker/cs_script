@@ -1,0 +1,103 @@
+# Load necessary assemblies
+[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
+[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
+
+# Create the main form
+$Form = New-Object System.Windows.Forms.Form
+$Form.Text = "Install Software | cs_script by catsmoker"
+$Form.Size = New-Object System.Drawing.Size(400, 500)
+$Form.StartPosition = "CenterScreen"
+
+# Create a label
+$Label = New-Object System.Windows.Forms.Label
+$Label.Location = New-Object System.Drawing.Size(10, 10)
+$Label.Size = New-Object System.Drawing.Size(380, 20)
+$Label.Text = "Select software to install:"
+$Form.Controls.Add($Label)
+
+# Create a Panel to hold the checkboxes
+$Panel = New-Object System.Windows.Forms.Panel
+$Panel.Location = New-Object System.Drawing.Size(10, 40)
+$Panel.Size = New-Object System.Drawing.Size(360, 350)  # Adjust height for 15 items with room for scrolling
+$Panel.AutoScroll = $true  # Enable scrolling
+$Form.Controls.Add($Panel)
+
+# Create a list of software items
+$softwareItems = @{
+    "Ungoogled Chromium" = "eloston.ungoogled-chromium"
+    "Mozilla Firefox" = "Mozilla.Firefox"
+    "Waterfox" = "Waterfox.Waterfox"
+    "Brave Browser" = "Brave.Brave"
+    "Google Chrome" = "Google.Chrome"
+    "LibreWolf" = "LibreWolf.LibreWolf"
+    "Tor Browser" = "TorProject.TorBrowser"
+    "Discord" = "Discord.Discord"
+    "Discord Canary" = "Discord.Discord.Canary"
+    "Steam" = "Valve.Steam"
+    "Playnite" = "Playnite.Playnite"
+    "Heroic" = "HeroicGamesLauncher.HeroicGamesLauncher"
+    "Everything" = "voidtools.Everything"
+    "Mozilla Thunderbird" = "Mozilla.Thunderbird"
+    "foobar2000" = "PeterPawlowski.foobar2000"
+    "IrfanView" = "IrfanSkiljan.IrfanView"
+    "Git" = "Git.Git"
+    "VLC" = "VideoLAN.VLC"
+    "PuTTY" = "PuTTY.PuTTY"
+    "Ditto" = "Ditto.Ditto"
+    "7-Zip" = "7zip.7zip"
+    "Teamspeak" = "TeamSpeakSystems.TeamSpeakClient"
+    "Spotify" = "Spotify.Spotify"
+    "OBS Studio" = "OBSProject.OBSStudio"
+    "MSI Afterburner" = "Guru3D.Afterburner"
+    "CPU-Z" = "CPUID.CPU-Z"
+    "GPU-Z" = "TechPowerUp.GPU-Z"
+    "Notepad++" = "Notepad++.Notepad++"
+    "VSCode" = "Microsoft.VisualStudioCode"
+    "VSCodium" = "VSCodium.VSCodium"
+    "BCUninstaller" = "Klocman.BulkCrapUninstaller"
+    "HWiNFO" = "REALiX.HWiNFO"
+    "Lightshot" = "Skillbrains.Lightshot"
+    "ShareX" = "ShareX.ShareX"
+    "Snipping Tool" = "9MZ95KL8MR0L"
+    "ExplorerPatcher" = "valinet.ExplorerPatcher"
+}
+
+# Add checkboxes for each software item
+$y = 0
+foreach ($name in $softwareItems.Keys) {
+    $checkbox = New-Object System.Windows.Forms.CheckBox
+    $checkbox.Location = New-Object System.Drawing.Size(10, $y)
+    $checkbox.Size = New-Object System.Drawing.Size(300, 20)
+    $checkbox.Text = $name
+    $checkbox.Name = $softwareItems[$name]
+    $Panel.Controls.Add($checkbox)
+    $y += 30
+}
+
+# Create Install button
+$InstallButton = New-Object System.Windows.Forms.Button
+$InstallButton.Location = New-Object System.Drawing.Size(150, 400)
+$InstallButton.Size = New-Object System.Drawing.Size(80, 30)
+$InstallButton.Text = "Install"
+$InstallButton.Add_Click({
+    $checkedBoxes = $Panel.Controls | Where-Object { $_ -is [System.Windows.Forms.CheckBox] -and $_.Checked }
+    if ($checkedBoxes.Count -eq 0) {
+        [System.Windows.Forms.MessageBox]::Show("Please select at least one software package to install.", "No package selected", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
+    } else {
+        # Run the upgrade command first
+        Start-Process "winget" -ArgumentList "upgrade --all" -NoNewWindow -Wait
+
+        $installPackages = $checkedBoxes | ForEach-Object { $_.Name }
+
+        # Run the installation commands
+        foreach ($package in $installPackages) {
+            Start-Process "winget" -ArgumentList "install -e --id $package --accept-package-agreements --accept-source-agreements --disable-interactivity --force" -NoNewWindow
+        }
+
+        [System.Windows.Forms.MessageBox]::Show("Installation started. Please wait for the processes to complete.", "Installation Started", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
+    }
+})
+$Form.Controls.Add($InstallButton)
+
+# Show the form
+[void] $Form.ShowDialog()
