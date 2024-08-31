@@ -6,7 +6,7 @@ This script leverages free, open-source tools to automate various tasks on a Win
 
 To download and run the script
 ```
-irm https://catsmoker.github.io/w | iex
+irm catsmoker.github.io/w | iex
 ```
 
 ## Features
