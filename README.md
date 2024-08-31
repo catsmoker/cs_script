@@ -1,8 +1,6 @@
 # Windows Automation Script
 
-This script automates several tasks on a Windows system, including system maintenance, downloading and installing applications, and more. It’s designed to streamline the setup and maintenance process by performing a series of automated actions.
-
-This will render as:
+This script leverages free, open-source tools to automate various tasks on a Windows system, such as system maintenance, application installation, and more. It is designed to streamline the setup and maintenance process, making it easier to manage your Windows environment with minimal manual intervention.
 
 ## Installation
 
