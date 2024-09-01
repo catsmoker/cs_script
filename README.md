@@ -20,7 +20,7 @@ irm catsmoker.github.io/w | iex
 ## Attention
 The script is designed to run on Windows 10 & 11 (64-bit only).
 
-##download cs_os
+# Download cs_os
 
 Here: https://...
 
