@@ -90,11 +90,11 @@ Function Show-Menu {
     Write-Host " "
     Write-Host "            1. Scan and Fix Windows"
     Write-Host " "
-    Write-Host "            2. Download apps and drivers"
+    Write-Host "            2. Downloads / drivers"
     Write-Host " "
     Write-Host "            3. Activate Windows"
     Write-Host " "
-    Write-Host "            4. Download Atlas OS Playbook and AME Wizard"
+    Write-Host "            4. Atlas OS Playbook and AME Wizard"
     Write-Host " "
     Write-Host "            5. ctt Utility"
     Write-Host " "
@@ -117,7 +117,6 @@ Function Run-CTT {
     Clear-Host
     Write-Host "Running The Ultimate Windows Utility by ctt..."
     Start-Process "powershell" -ArgumentList "iwr -useb https://christitus.com/win | iex"
-    Start-Process "https://christitus.com/windows-tool/"
     Pause
     Show-Menu
 }
@@ -168,7 +167,7 @@ Function Download-Apps {
 	Write-Host " "
 	Write-Host "     3. Fix Digital Flat Panel (640x480 60Hz) problem"
 	Write-Host " "
-	Write-Host "---------------------------------------------"
+	Write-Host "--------------------------------------------------------------"
 	Write-Host " "
 	Write-Host "             more apps here:"
 	Write-Host " "
@@ -265,11 +264,11 @@ Function Install-Drivers {
 	Write-Host " "
 	Write-Host "       0. windows update drivers"
 	Write-Host " "
-    Write-Host "       1. intel"
+        Write-Host "       1. intel"
 	Write-Host " "
-    Write-Host "       2. amd"
+        Write-Host "       2. amd"
 	Write-Host " "
-    Write-Host "       3. nvidia"
+        Write-Host "       3. nvidia"
 	Write-Host " "
 	Write-Host "       x. Exit"
 	Write-Host " "
@@ -325,7 +324,6 @@ Function Activate-Windows {
     Write-Host "       2. Copy and paste the code below and press enter"
     Write-Host "       3. irm https://get.activated.win | iex"
     Start-Process "powershell" -ArgumentList "irm https://get.activated.win | iex"
-    Start-Process "https://github.com/massgravel/Microsoft-Activation-Scripts?tab=readme-ov-file#download--how-to-use-it"
     Write-Host "Done!"
     Pause
     Show-Menu
@@ -345,7 +343,6 @@ Function Download-Playbook {
     $amePath = [System.IO.Path]::Combine($downloadsPath, 'AME Wizard Beta.zip')
     Invoke-WebRequest -Uri 'https://download.ameliorated.io/AME%20Wizard%20Beta.zip' -OutFile $amePath
     Write-Host "Please visit https://atlasos.net/"
-    Start-Process "https://atlasos.net/"
 
     Write-Host "Downloads completed successfully!"
     Pause
