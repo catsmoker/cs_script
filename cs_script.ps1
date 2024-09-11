@@ -158,32 +158,33 @@ Function Download-Apps {
     Clear-Host
     Write-Host "Downloading specific applications and drivers..."
 	Write-Host " "
-    Write-Host "             Select an option:"
+        Write-Host "                Select an option:"
 	Write-Host " "
-    Write-Host "     0. Upgrade all"
+        Write-Host "     0. Upgrade all"
 	Write-Host " "
-    Write-Host "     1. Drivers"
+        Write-Host "     1. Drivers"
 	Write-Host " "
-    Write-Host "     2. applications"
+        Write-Host "     2. Applications"
 	Write-Host " "
+	Write-Host "     3. Fix Digital Flat Panel (640x480 60Hz) problem"
 	Write-Host " "
-	Write-Host "             more apps here: "
+	Write-Host "---------------------------------------------"
 	Write-Host " "
-	Write-Host "     3. neat"
+	Write-Host "             more apps here:"
 	Write-Host " "
-    Write-Host "     4. qBittorrent"
+	Write-Host "     4. neat"
 	Write-Host " "
-    Write-Host "     5. Office 365"
+        Write-Host "     5. Office 365"
 	Write-Host " "
-    Write-Host "     x. Exit"
+        Write-Host "     x. Exit"
 	Write-Host " "
     $choice = Read-Host "Enter your choice (0-5, or x to exit)"
     Switch ($choice) {
         "0" { Upgrade-All }
         "1" { Install-Drivers }
         "2" { Install-apps }
-		"3" { Install-neat }
-        "4" { Install-qBittorrent }
+        "3" { cru }
+	"4" { Install-neat }
         "5" { Install-Office365 }
         "x" { Show-Menu }
         Default { Write-Host "Invalid choice. Please enter a number between 0 to 5 or x."; Pause; Download-Apps }
@@ -216,11 +217,11 @@ Pause
 Download-Apps
 }
 
-Function Install-qBittorrent {
-    Write-Host "Installing qBittorrent..." -NoNewline
-    winget install -e --id qBittorrent.qBittorrent
+Function cru {
+    Write-Host "Installing cru..." -NoNewline
+    Start-Process "https://www.monitortests.com/forum/Thread-Custom-Resolution-Utility-CRU"
     if ($LASTEXITCODE -ne 0) {
-        Write-Host "Installation failed. Please go to https://www.qbittorrent.org/download"
+        Write-Host "Installation failed. Please go to https://www.monitortests.com/forum/Thread-Custom-Resolution-Utility-CRU"
         Pause
         Download-Apps
         return
