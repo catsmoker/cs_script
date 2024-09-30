@@ -4,7 +4,7 @@ This script leverages free, open-source tools to automate various tasks on a Win
 
 ## Installation
 
-To download and run the script
+put this in powershell not cmd
 ```
 irm catsmoker.github.io/w | iex
 ```
