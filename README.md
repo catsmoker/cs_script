@@ -13,6 +13,6 @@ The script is designed to run on Windows 10 & 11 (64-bit only).
 
 # Download cs_os
 
-Here: [cs_os_v1.0](https://mega.nz/file/h44WjDoB#UVKfZZ7C3DtbWcH2rg__kYt8PrSlity1_VVeQ1JA6qU)
+Here: [cs_os_w11](https://mega.nz/file/9tpmGRrB#cyWHNH_AUlh5oYFTgearOztz8hO62qQbXBpV8tXn4GA)
 
 CS_OS is a modified version of Windows 10 Pro (64-bit) with minimal bloatware, optimized for high performance and compatibility.
