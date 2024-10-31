@@ -11,8 +11,8 @@ irm catsmoker.github.io/w | iex
 ## Attention
 The script is designed to run on Windows 10 & 11 (64-bit only).
 
-# Download cs_os
+# Download csx_os
 
-Here: [csx_os_w11](https://mega.nz/file/9tpmGRrB#cyWHNH_AUlh5oYFTgearOztz8hO62qQbXBpV8tXn4GA)
+Here: [csx_os_w11](https://catsmoker.github.io/csxos.html)
 
 CS_OS is a modified version of Windows 10 Pro (64-bit) with minimal bloatware, optimized for high performance and compatibility.
