@@ -6,10 +6,10 @@
 <#
 .NOTES
     Author         : catsmoker
-    Email          : boulhada08@gmail.com
+    Email          : catsmoker.lab@gmail.com
     Website        : https://catsmoker.github.io
     GitHub         : https://github.com/catsmoker/cs_script
-    Version        : 1.7
+    Version        : 1.8
 #>
 
                                                       
@@ -55,7 +55,7 @@ $targetPath = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
 $arguments = "-NoProfile -ExecutionPolicy Bypass -Command `"powershell.exe -NoProfile -ExecutionPolicy Bypass -Command 'irm https://catsmoker.github.io/w | iex'`""
 
 # Define the URL for the icon and the path to save it locally
-$iconUrl = "https://catsmoker.github.io/assets/ico/favicon.ico"
+$iconUrl = "https://catsmoker.github.io/web/assets/ico/favicon.ico"
 $localIconPath = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), 'favicon.ico')
 
 # Download the icon file
@@ -95,7 +95,7 @@ Write-Host "                                  \|_______|\_________\\_________\|_
 Write-Host "                                           \|_________\|_________|                                           " -ForegroundColor Cyan
 	Write-Host " "
 	Write-Host " "
-    Write-Host "                                               cs Script v1.7 (by catsmoker) https://catsmoker.github.io"
+    Write-Host "                                               cs Script v1.8 (by catsmoker) https://catsmoker.github.io"
     Write-Host " "
 	Write-Host " "
     Write-Host "            Select an option:"
@@ -263,6 +263,10 @@ Function Clean-Windows {
     $diskCleanupPath = "$env:windir\System32\cleanmgr.exe"
     Start-Process -FilePath $diskCleanupPath -ArgumentList "/sagerun:1" -Wait
 
+    # Flush the DNS Cache
+    Write-Host "Flushing the DNS Cache..."
+    ipconfig /flushdns
+
     # Calculate and display elapsed time
     $elapsedTime = (Get-Date) - $startTime
     Write-Host "Cleanup completed in $($elapsedTime.TotalSeconds) seconds." -ForegroundColor Green
@@ -351,15 +355,156 @@ Function Upgrade-All {
 }
 
 Function Install-apps {
-# URL of the cloud script
-$cloudScriptUrl = "https://catsmoker.github.io/installapps"
-# Run the cloud-based script
-Write-Host "Running the cloud script..." -ForegroundColor Cyan
-Start-Process "powershell" -ArgumentList "iwr -useb $cloudScriptUrl | iex"
-Write-Host "Script execution completed." -ForegroundColor Green
-Write-Host "Done!"
-Pause
-Download-Apps
+    # Check if winget is installed
+    if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
+        Write-Host "winget is not installed. Attempting to install..."
+
+        # Download the latest version of the App Installer from the Microsoft Store
+        $installerUrl = "https://aka.ms/getwinget"
+        
+        # Define the path for the installer
+        $installerPath = "$env:TEMP\AppInstaller.msixbundle"
+
+        # Download the installer
+        try {
+            Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath
+            Write-Host "Downloaded winget installer."
+
+            # Install the downloaded package
+            Add-AppxPackage -Path $installerPath
+            Write-Host "winget installation completed."
+        } catch {
+            Write-Host "Failed to download or install winget. Please try again."
+            Write-Host $_.Exception.Message
+            Pause
+            return
+        }
+    } else {
+        Write-Host "winget is already installed."
+    }
+
+    # Load necessary assemblies for GUI
+    Add-Type -AssemblyName System.Windows.Forms
+    Add-Type -AssemblyName System.Drawing
+
+    # Create the main form
+    $Form = New-Object System.Windows.Forms.Form
+    $Form.Text = "Install Software | cs_script by catsmoker"
+    $Form.Size = New-Object System.Drawing.Size(450, 600)
+    $Form.StartPosition = "CenterScreen"
+    $Form.BackColor = [System.Drawing.Color]::FromArgb(50, 50, 50)  # Dark background
+    $Form.FormBorderStyle = 'FixedDialog'
+    $Form.MaximizeBox = $false
+
+    # Create a label
+    $Label = New-Object System.Windows.Forms.Label
+    $Label.Location = New-Object System.Drawing.Size(20, 20)
+    $Label.Size = New-Object System.Drawing.Size(400, 30)
+    $Label.Text = "Select software to install:"
+    $Label.Font = New-Object System.Drawing.Font("Segoe UI", 12, [System.Drawing.FontStyle]::Bold)
+    $Label.ForeColor = [System.Drawing.Color]::White
+    $Form.Controls.Add($Label)
+
+    # Create a Panel to hold the checkboxes
+    $Panel = New-Object System.Windows.Forms.Panel
+    $Panel.Location = New-Object System.Drawing.Size(20, 60)
+    $Panel.Size = New-Object System.Drawing.Size(400, 400)  # Adjust height for 15 items with room for scrolling
+    $Panel.AutoScroll = $true  # Enable scrolling
+    $Panel.BorderStyle = 'FixedSingle'
+    $Panel.BackColor = [System.Drawing.Color]::FromArgb(35, 35, 35)  # Slightly darker panel background
+    $Form.Controls.Add($Panel)
+
+    # Create a list of software items
+    $softwareItems = @{
+        "Ungoogled Chromium" = "eloston.ungoogled-chromium"
+        "Mozilla Firefox" = "Mozilla.Firefox"
+        "Waterfox" = "Waterfox.Waterfox"
+        "Brave Browser" = "Brave.Brave"
+        "Google Chrome" = "Google.Chrome"
+        "LibreWolf" = "LibreWolf.LibreWolf"
+        "Tor Browser" = "TorProject.TorBrowser"
+        "Discord" = "Discord.Discord"
+        "Discord Canary" = "Discord.Discord.Canary"
+        "Steam" = "Valve.Steam"
+        "Playnite" = "Playnite.Playnite"
+        "Heroic" = "HeroicGamesLauncher.HeroicGamesLauncher"
+        "Everything" = "voidtools.Everything"
+        "Mozilla Thunderbird" = "Mozilla.Thunderbird"
+        "foobar2000" = "PeterPawlowski.foobar2000"
+        "IrfanView" = "IrfanSkiljan.IrfanView"
+        "Git" = "Git.Git"
+        "VLC" = "VideoLAN.VLC"
+        "PuTTY" = "PuTTY.PuTTY"
+        "Ditto" = "Ditto.Ditto"
+        "7-Zip" = "7zip.7zip"
+        "Teamspeak" = "TeamSpeakSystems.TeamSpeakClient"
+        "Spotify" = "Spotify.Spotify"
+        "OBS Studio" = "OBSProject.OBSStudio"
+        "MSI Afterburner" = "Guru3D.Afterburner"
+        "CPU-Z" = "CPUID.CPU-Z"
+        "GPU-Z" = "TechPowerUp.GPU-Z"
+        "Notepad++" = "Notepad++.Notepad++"
+        "VSCode" = "Microsoft.VisualStudioCode"
+        "VSCodium" = "VSCodium.VSCodium"
+        "BCUninstaller" = "Klocman.BulkCrapUninstaller"
+        "HWiNFO" = "REALiX.HWiNFO"
+        "Lightshot" = "Skillbrains.Lightshot"
+        "ShareX" = "ShareX.ShareX"
+        "Snipping Tool" = "9MZ95KL8MR0L"
+        "ExplorerPatcher" = "valinet.ExplorerPatcher"
+        "MemReduct" = "Henry++.MemReduct"
+    }
+
+    # Add checkboxes for each software item
+    $y = 0
+    foreach ($name in $softwareItems.Keys) {
+        $checkbox = New-Object System.Windows.Forms.CheckBox
+        $checkbox.Location = New-Object System.Drawing.Size(10, $y)
+        $checkbox.Size = New-Object System.Drawing.Size(360, 25)
+        $checkbox.Text = $name
+        $checkbox.Name = $softwareItems[$name]
+        $checkbox.ForeColor = [System.Drawing.Color]::White
+        $checkbox.BackColor = [System.Drawing.Color]::FromArgb(35, 35, 35)
+        $checkbox.Font = New-Object System.Drawing.Font("Segoe UI", 10)
+        $Panel.Controls.Add($checkbox)
+        $y += 30
+    }
+
+    # Create Install button
+    $InstallButton = New-Object System.Windows.Forms.Button
+    $InstallButton.Location = New-Object System.Drawing.Size(185, 480)
+    $InstallButton.Size = New-Object System.Drawing.Size(100, 40)
+    $InstallButton.Text = "Install"
+    $InstallButton.Font = New-Object System.Drawing.Font("Segoe UI", 10, [System.Drawing.FontStyle]::Bold)
+    $InstallButton.BackColor = [System.Drawing.Color]::FromArgb(70, 130, 180)  # SteelBlue color
+    $InstallButton.ForeColor = [System.Drawing.Color]::White
+    $InstallButton.FlatStyle = 'Flat'
+    $InstallButton.FlatAppearance.BorderSize = 0
+    $InstallButton.Add_Click({
+        $checkedBoxes = $Panel.Controls | Where-Object { $_ -is [System.Windows.Forms.CheckBox] -and $_.Checked }
+        if ($checkedBoxes.Count -eq 0) {
+            [System.Windows.Forms.MessageBox]::Show("Please select at least one software package to install.", "No package selected", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
+        } else {
+            # Run the upgrade command first
+            Start-Process "winget" -ArgumentList "upgrade --all" -NoNewWindow -Wait
+
+            $installPackages = $checkedBoxes | ForEach-Object { $_.Name }
+
+            # Run the installation commands
+            foreach ($package in $installPackages) {
+                Start-Process "winget" -ArgumentList "install -e --id $package --accept-package-agreements --accept-source-agreements --disable-interactivity --force" -NoNewWindow
+            }
+
+            [System.Windows.Forms.MessageBox]::Show("Installation started. Please wait for the processes to complete.", "Installation Started", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
+        }
+    })
+    $Form.Controls.Add($InstallButton)
+
+    # Show the form
+    [void] $Form.ShowDialog()
+
+    Pause
+    Download-Apps
 }
 
 Function cru {
