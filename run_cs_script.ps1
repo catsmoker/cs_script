@@ -1,17 +1,3 @@
-#============================================================================
-#
-# WARNING: DO NOT modify this file!
-#
-#============================================================================
-<#
-.NOTES
-    Author         : catsmoker
-    Email          : boulhada08@gmail.com
-    Website        : https://catsmoker.github.io
-    GitHub         : https://github.com/catsmoker/cs_script
-    Version        : 1.7
-#>
-
 # Set console properties
 $Host.UI.RawUI.WindowTitle = "catsmoker: cs_script v1.7"
 $host.UI.RawUI.ForegroundColor = "Green"
