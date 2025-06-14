@@ -26,7 +26,7 @@ irm https://catsmoker.github.io/w | iex
 
 ### 🔹 Executable (Optional)
 
-Download the `.exe` installer from the [Releases](https://github.com/catsmoker/windows-maintenance-tool/releases) page.
+Download the `.exe` installer from the [Releases](https://github.com/catsmoker/cs_script/releases) page.
 
 > 🛑 Only for **Windows 10 & 11**
 
