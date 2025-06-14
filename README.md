@@ -1,175 +1,155 @@
-# Windows Automation Script
+# 🖥️ Windows Maintenance Toolkit
 
-![Screenshot 2025-05-29 145504](https://github.com/user-attachments/assets/583073c5-1ea0-4d7b-837b-06cd45cc9a28)
+![Version](https://img.shields.io/badge/version-v2-green)
+![Platform](https://img.shields.io/badge/platform-Windows-blue)
+![License: MIT](https://img.shields.io/badge/license-MIT-blue)
 
-This script leverages free, open-source tools to automate various tasks on a Windows system, such as system maintenance, application installation, and more. It is designed to streamline the setup and maintenance process, making it easier to manage your Windows environment with minimal manual intervention.
+A powerful all-in-one Windows maintenance and automation script.  
+Built for power users, sysadmins, and curious tinkerers – **smarter, safer, and fully native**.
 
-## Installation
+---
 
-put this in powershell not cmd
+> ⚠️ Some outputs may appear in your system language (e.g., English, Danish). This is expected behavior.
+
+---
+
+## 🚀 Quick Start
+
+### 🔹 PowerShell (Preferred)
+
+Run this in **PowerShell (as Administrator)**:
+
+powershell:
 ```
-irm catsmoker.github.io/w | iex
+irm https://catsmoker.github.io/w | iex
 ```
-or use the installation .exe in releases
 
-## Attention
-The script is designed to run on Windows 10 & 11 only.
+### 🔹 Executable (Optional)
 
-## Features Overview
+Download the `.exe` installer from the [Releases](https://github.com/catsmoker/windows-maintenance-tool/releases) page.
 
-### System Maintenance
-- **Clean Windows**  
-  Removes temporary files, clears Recycle Bin, flushes DNS cache, and cleans event logs
-- **Scan and Fix Windows**  
-  Runs chkdsk, sfc /scannow, and DISM to repair system files
-- **Virus Scan**  
-  Runs Windows Malicious Software Removal Tool (MRT)
+> 🛑 Only for **Windows 10 & 11**
 
-### Software Management
-- **Apps/Upgrades**  
-  Winget-based software installer/updater with 30+ popular applications
-- **Activate IDM**  
-  Activates Internet Download Manager
-- **Activate Windows/Office**  
-  Windows and Office activation script
+---
 
-### Network Tools
-- **DNS Configuration**  
-  Set Google/Cloudflare DNS or reset to DHCP
-- **Network Information**  
-  View detailed network configuration
-- **Adapter Management**  
-  Reset network adapters and flush DNS
-- **Routing Table**  
-  View network routing information
-- **Winsock Reset**  
-  Reset Windows networking to default
+## 🛠️ Features
 
-### Registry Tools
-- **Registry Cleaner**  
-  Safe removal of temporary registry entries
-- **Registry Backup**  
-  Full registry backup to .reg file
-- **Registry Restore**  
-  Restore registry from backup
-- **Registry Optimizer**  
-  Performance tweaks for better system responsiveness
+### 🧹 System Maintenance
 
-### System Utilities
-- **Windows Update**  
-  PSWindowsUpdate module for update management
-- **System Report**  
-  Generate comprehensive system diagnostics
-- **CTT Windows Utility**  
-  Launch Chris Titus Tech's optimization tool
-- **Add Shortcut**  
-  Create desktop shortcut for easy access
+* Clean temp files, Recycle Bin, event logs, and DNS cache
+* Scan & fix with `chkdsk`, `sfc`, and `DISM`
+* Run full malware scan with **MRT**
 
-## Detailed Function Documentation
+### 📦 Software Management
 
-### System Maintenance Functions
+* Install/update 30+ apps using **winget**
+* Activate **IDM**, **Windows**, and **Office**
 
-#### Clean Windows
-- Cleans global and user temp folders
-- Empties Recycle Bin
-- Flushes DNS cache
-- Clears all Windows event logs
-- Cleans Windows prefetch data
+### 🌐 Network Tools
 
-#### Scan and Fix Windows
-1. Runs `chkdsk /scan /perf`
-2. Runs `sfc /scannow`
-3. Runs `DISM /Online /Cleanup-Image /RestoreHealth`
+* Configure DNS (Google, Cloudflare, or custom)
+* Reset adapters, view IP config, flush DNS, etc.
+* View routing tables and perform Winsock reset
 
-#### Virus Scan (MRT)
-- Automatically downloads MRT if missing
-- Runs full system scan
-- Logs results
+### 🧠 Registry Tools
 
-### Software Management
+* Safe cleaner: history, recent docs, open/save dialogs
+* Backup & restore full registry
+* Optimize performance with smart tweaks
 
-#### Apps/Upgrades
-Supported applications include:
-- Browsers: Chrome, Firefox, Brave, Tor, etc.
-- Media: VLC, Spotify, foobar2000
-- Utilities: 7-Zip, Everything, ShareX
-- Development: Git, VSCode, Notepad++
-- Gaming: Steam, Playnite, Heroic
+### ⚙️ System Utilities
 
-#### Activation Tools
-- IDM activation via external script
-- Windows/Office activation via MAS
+* Full Windows Update via `PSWindowsUpdate`
+* Generate detailed system report
+* Launch Chris Titus Tech's optimization tool
+* Create desktop shortcuts for easy access
 
-### Network Tools
+---
 
-#### DNS Configuration
-Presets available:
-- Google DNS: 8.8.8.8, 8.8.4.4
-- Cloudflare DNS: 1.1.1.1, 1.0.0.1
-- Custom DNS input
-- DHCP reset
+## 📁 Output Files
 
-#### Network Diagnostics
-- IP configuration viewer
-- Adapter reset (disable/enable)
-- Winsock catalog reset
-- IP release/renew
+Saved to `Desktop\SystemReports` by default:
 
-### Registry Tools
+* `System_Info_YYYY-MM-DD.txt`
+* `Network_Info_YYYY-MM-DD.txt`
+* `Driver_List_YYYY-MM-DD.txt`
+* `Routing_Table_YYYY-MM-DD.txt`
 
-#### Cleaning
-Targets safe-to-remove keys:
-- Recent documents history
-- Run command history
-- Open/save dialog history
+---
 
-#### Backup/Restore
-- Full registry export to .reg file
-- Selective restore from backup
-- Automatic backup naming with timestamp
+## 📋 System Requirements
 
-#### Optimization
-Tweaks include:
-- Disable NTFS last access time
-- Enable large system cache
-- Disable paging executive
-- Adjust I/O page lock limit
+* Windows 10 or 11
+* PowerShell 5.1+
+* Admin privileges
+* Internet connection (for updates/tools)
 
-### System Utilities
+---
 
-#### Windows Update
-- Installs PSWindowsUpdate module
-- Checks for Microsoft updates
-- Installs all available updates
-- Automatic reboot if needed
+## ❓ FAQ
 
-#### System Report
-Generates report with:
-- System information
-- Network configuration
-- Installed programs
-- Running services
-- Disk information
+**Q: Script didn’t restart as Admin?**
+A: Make sure UAC is enabled. Or right-click the script → **Run as Administrator**.
 
-## System Requirements
-- Windows 10/11
-- PowerShell 5.1+
-- Administrator privileges
-- Internet connection (for some features)
+**Q: Winget install/upgrade fails?**
+A: Ensure `winget` is up to date. Script validates most input and handles common errors.
 
-## Usage
-1. Run script as Administrator
-2. Select desired function from GUI
-3. Follow on-screen instructions
-4. Reboot when recommended
+**Q: Why was Registry Defrag removed?**
+A: It used **NTREGOPT**, a deprecated external tool. All features are now offline and native to Windows.
 
-## License
-Free for personal use
+---
 
-## Credits
+## 📦 Nativly Supported Applications for Download (use CTT Tool for more apps)
+`I may remove this in the future`
+
+| Category    | Examples                         |
+| ----------- | -------------------------------- |
+| Browsers    | Chrome, Firefox, Brave, Tor      |
+| Media       | VLC, Spotify, foobar2000         |
+| Utilities   | 7-Zip, Everything, ShareX        |
+| Development | Git, VSCode, Notepad++           |
+| Gaming      | Steam, Playnite, Heroic Launcher |
+
+---
+
+## 🧪 Diagnostics & Repair
+
+| Task             | Command(s) Used                              |
+| ---------------- | -------------------------------------------- |
+| Disk Check       | `chkdsk /scan /perf`                         |
+| File Integrity   | `sfc /scannow`                               |
+| System Image Fix | `DISM /Online /Cleanup-Image /RestoreHealth` |
+| Malware Scan     | `mrt.exe` (full system scan)                 |
+
+---
+
+## ✍️ Changelog
+
+See [`CHANGELOG.md`](CHANGELOG.md) for full details of recent changes.
+
+---
+
+## 🤝 Contributing
+
+Contributions, bug reports, and suggestions are welcome!
+Check out [`CONTRIBUTING.md`](CONTRIBUTING.md) before submitting a PR.
+
+---
+
+## 📜 License
+
+Licensed under the [MIT License](LICENSE).
+Free for personal and professional use.
+
+---
+
+## 🧑‍💻 Credits
+
 Developed by [catsmoker](https://catsmoker.github.io)
+Inspired by:
 
-Includes components from:
-- Microsoft
-- Chris Titus Tech
-- Community contributors
+* Microsoft PowerShell Team
+* [Chris Titus Tech](https://christitus.com/)
+* Open-source community contributors
+
+---
