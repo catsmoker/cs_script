@@ -15,7 +15,11 @@ Built for power users, sysadmins, and curious tinkerers – **smarter, safer, an
 
 ## 🚀 Quick Start
 
-### 🔹 PowerShell (Preferred)
+### 🔹 PowerShell (Offline)
+
+Download the `.ps1` file from the [Releases](https://github.com/catsmoker/cs_script/releases) page and run with powershell.
+
+### 🔹 PowerShell (Online)
 
 Run this in **PowerShell (as Administrator)**:
 
@@ -24,9 +28,9 @@ powershell:
 irm https://catsmoker.github.io/w | iex
 ```
 
-### 🔹 Executable (Optional)
+### 🔹 Executable (Online)
 
-Download the `.exe` installer from the [Releases](https://github.com/catsmoker/cs_script/releases) page.
+Download the `.exe` installer from the [Releases](https://github.com/catsmoker/cs_script/releases) page and install it.
 
 > 🛑 Only for **Windows 10 & 11**
 
