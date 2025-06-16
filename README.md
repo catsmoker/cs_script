@@ -98,9 +98,6 @@ A: Make sure UAC is enabled. Or right-click the script → **Run as Administrato
 **Q: Winget install/upgrade fails?**
 A: Ensure `winget` is up to date. Script validates most input and handles common errors.
 
-**Q: Why was Registry Defrag removed?**
-A: It used **NTREGOPT**, a deprecated external tool. All features are now offline and native to Windows.
-
 ---
 
 ## 📦 Nativly Supported Applications for Download (use CTT Tool for more apps)
