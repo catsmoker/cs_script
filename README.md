@@ -17,7 +17,7 @@ Built for power users, sysadmins, and curious tinkerers – **smarter, safer, an
 
 ### 🔹 PowerShell (Offline)
 
-Download the `.ps1` file from the [Releases](https://github.com/catsmoker/cs_script/releases) page and run with powershell.
+Run the `.ps1` file from the [main](https://github.com/catsmoker/AetherKit/archive/refs/heads/main.zip) page and run with powershell.
 
 ### 🔹 PowerShell (Online)
 
