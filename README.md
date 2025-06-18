@@ -1,4 +1,4 @@
-# 🖥️ Windows Maintenance Toolkit (CS_script)
+# 🖥️ Windows AetherKit
 
 ![Version](https://img.shields.io/badge/version-v2-green)
 ![Platform](https://img.shields.io/badge/platform-Windows-blue)
