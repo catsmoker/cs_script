@@ -8,7 +8,7 @@
     Author         : catsmoker
     Email          : catsmoker.lab@gmail.com
     Website        : https://catsmoker.github.io
-    GitHub         : https://github.com/catsmoker/cs_script
+    GitHub         : https://github.com/catsmoker/AetherKit
     Version        : 2.0
 #>
 
