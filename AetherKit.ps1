@@ -411,7 +411,7 @@ Function DownloadApps {
     }
 
     $Form = New-Object System.Windows.Forms.Form
-    $Form.Text = "Install Software | cs_script by catsmoker"
+    $Form.Text = "Install Software | AetherKit by catsmoker"
     $Form.Size = New-Object System.Drawing.Size(500, 650)
     $Form.StartPosition = "CenterScreen"
     $Form.BackColor = [System.Drawing.Color]::FromArgb(18, 18, 22)
