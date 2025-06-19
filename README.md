@@ -4,6 +4,8 @@
 ![Platform](https://img.shields.io/badge/platform-Windows-blue)
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue)
 
+![aetherkit_icon](https://github.com/user-attachments/assets/f3aa4aee-8065-4fc3-b3ae-d75b89677f69)
+
 A powerful all-in-one Windows maintenance and automation script.  
 Built for power users, sysadmins, and curious tinkerers – **smarter, safer, and fully native**.
 
