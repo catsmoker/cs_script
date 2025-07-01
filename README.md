@@ -13,13 +13,15 @@ Built for power users, sysadmins, and curious tinkerers – **smarter, safer, an
 
 > ⚠️ Some outputs may appear in your system language (e.g., English, Danish). This is expected behavior.
 
+> 🛑 Only for **Windows 10 & 11**
+
 ---
 
 ## 🚀 Quick Start
 
 ### 🔹 PowerShell (Offline)
 
-Run the `.ps1` file from the [main](https://github.com/catsmoker/AetherKit/archive/refs/heads/main.zip) page and run with powershell.
+Run the `main.ps1` file from the [main](https://github.com/catsmoker/AetherKit/archive/refs/heads/main.zip) page and run with powershell.
 
 ### 🔹 PowerShell (Online)
 
@@ -33,8 +35,6 @@ irm https://catsmoker.github.io/w | iex
 ### 🔹 Executable (Online)
 
 Download the `.exe` installer from the [Releases](https://github.com/catsmoker/cs_script/releases) page and install it.
-
-> 🛑 Only for **Windows 10 & 11**
 
 ---
 
@@ -102,36 +102,6 @@ A: Ensure `winget` is up to date. Script validates most input and handles common
 
 ---
 
-## 📦 Nativly Supported Applications for Download (use CTT Tool for more apps)
-`I may remove this in the future`
-
-| Category    | Examples                         |
-| ----------- | -------------------------------- |
-| Browsers    | Chrome, Firefox, Brave, Tor      |
-| Media       | VLC, Spotify, foobar2000         |
-| Utilities   | 7-Zip, Everything, ShareX        |
-| Development | Git, VSCode, Notepad++           |
-| Gaming      | Steam, Playnite, Heroic Launcher |
-
----
-
-## 🧪 Diagnostics & Repair
-
-| Task             | Command(s) Used                              |
-| ---------------- | -------------------------------------------- |
-| Disk Check       | `chkdsk /scan /perf`                         |
-| File Integrity   | `sfc /scannow`                               |
-| System Image Fix | `DISM /Online /Cleanup-Image /RestoreHealth` |
-| Malware Scan     | `mrt.exe` (full system scan)                 |
-
----
-
-## ✍️ Changelog
-
-See [`CHANGELOG.md`](CHANGELOG.md) for full details of recent changes.
-
----
-
 ## 🤝 Contributing
 
 Contributions, bug reports, and suggestions are welcome!
@@ -152,7 +122,6 @@ Developed by [catsmoker](https://catsmoker.github.io)
 Inspired by:
 
 * Microsoft PowerShell Team
-* [Chris Titus Tech](https://christitus.com/)
 * Open-source community contributors
 
 ---
